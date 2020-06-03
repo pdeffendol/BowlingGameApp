@@ -18,28 +18,28 @@ namespace BowlingGameApp
         public int Score()
         {
             var score = 0;
-
-            for (var currentRoll = 0; currentRoll < 20; currentRoll++)
+            var rollIndex = 0;
+            for (var frame = 0; frame < 10; frame++)
             {
-                score += _rolls[currentRoll];
-                if (IsSpare(currentRoll))
+                if (IsSpare(frame))
                 {
-                    score += _rolls[currentRoll + 1];
+                    score += 10 + _rolls[rollIndex + 2];
+                    rollIndex += 2;
+                }
+                else
+                {
+                    score += _rolls[rollIndex] + _rolls[rollIndex + 1];
+                    rollIndex += 2;
                 }
             }
 
             return score;
         }
 
-        private bool IsSpare(currentRoll)
+        private bool IsSpare(int firstRollOfFrameIndex)
         {
-
+            return _rolls[firstRollOfFrameIndex] 
+                + _rolls[firstRollOfFrameIndex + 1] == 10;
         }
     }
-
-    public class Frame
-    {
-
-    }
-
 }
