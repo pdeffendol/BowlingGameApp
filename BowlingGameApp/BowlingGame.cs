@@ -7,12 +7,12 @@ namespace BowlingGameApp
 {
     public class BowlingGame
     {
-        private int _currentFrame = 1;
-        private List<int> _rolls = new List<int>();
+        private int[] _rolls = new int[20];
+        private int _currentRollIndex = 0;
 
         public void Roll(int pins)
         {
-            _rolls.Add(pins);
+            _rolls[_currentRollIndex++] = pins;
         }
 
         public int Score()
