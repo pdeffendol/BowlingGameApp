@@ -7,7 +7,7 @@ namespace BowlingGameApp
 {
     public class BowlingGame
     {
-        private int[] _rolls = new int[20];
+        private int[] _rolls = new int[21];
         private int _currentRollIndex = 0;
 
         public void Roll(int pins)
@@ -21,7 +21,12 @@ namespace BowlingGameApp
             var rollIndex = 0;
             for (var frame = 0; frame < 10; frame++)
             {
-                if (IsSpare(frame))
+                if (IsStrike(rollIndex))
+                {
+                    score += 10 + _rolls[rollIndex + 1] + _rolls[rollIndex + 2];
+                    rollIndex += 1;
+                }
+                else if (IsSpare(rollIndex))
                 {
                     score += 10 + _rolls[rollIndex + 2];
                     rollIndex += 2;
@@ -34,6 +39,11 @@ namespace BowlingGameApp
             }
 
             return score;
+        }
+
+        private bool IsStrike(int firstRollOfFrameIndex)
+        {
+            return _rolls[firstRollOfFrameIndex] == 10;
         }
 
         private bool IsSpare(int firstRollOfFrameIndex)

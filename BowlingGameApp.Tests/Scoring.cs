@@ -39,6 +39,36 @@ namespace BowlingGameApp.Tests
             Assert.Equal(16, game.Score());
         }
 
+        [Fact]
+        public void OneStrike()
+        {
+            game.Roll(10);
+            game.Roll(5);
+            game.Roll(3);
+            RollMany(16, 0);
+
+            Assert.Equal(26, game.Score());
+        }
+
+        [Fact]
+        public void PerfectGame()
+        {
+            RollMany(12, 10);
+
+            Assert.Equal(300, game.Score());
+        }
+
+        [Fact]
+        public void TestSpareInTenth()
+        {
+            RollMany(18, 0); // 9 frames
+            game.Roll(5);
+            game.Roll(5);
+            game.Roll(10);
+
+            Assert.Equal(20, game.Score());
+        }
+
         private void RollMany(int rolls, int pins)
         {
             for (int r = 0; r < rolls; r++)
